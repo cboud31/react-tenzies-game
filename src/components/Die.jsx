@@ -6,7 +6,7 @@ const Die = (props) => {
   };
 
   return (
-    <div className="die-face" style={styles}>
+    <div className="die-face" style={styles} onClick={props.holdDice}>
       <span>{props.value}</span>
     </div>
   );

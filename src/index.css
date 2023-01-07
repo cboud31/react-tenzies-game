@@ -20,6 +20,19 @@ main {
   max-width: 800px;
 }
 
+.title {
+  color: #2b283a;
+  font-family: "Karla", sans-serif;
+  font-size: 26px;
+}
+
+.instructions {
+  color: #4a4e74;
+  font-family: "Inter";
+  max-width: 350px;
+  text-align: center;
+}
+
 .die-face {
   align-items: center;
   border-radius: 4px;
@@ -59,7 +72,7 @@ main {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
-.roll-dice > span {
+button {
   color: #ffffff;
   font-family: Karla;
   font-family: "Karla", sans-serif;
