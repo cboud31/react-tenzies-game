@@ -58,6 +58,13 @@ main {
   margin: 25px;
 }
 
+@media (max-width: 400px) {
+  .dice-container {
+    grid-gap: 7px;
+    margin: 12px;
+  }
+}
+
 .roll-dice {
   background-color: #5035ff;
   border: none;
