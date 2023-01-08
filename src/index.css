@@ -84,3 +84,19 @@ button {
   font-family: Karla;
   font-family: "Karla", sans-serif;
 }
+
+.scoreboard {
+  align-items: center;
+  background-color: white;
+  border-radius: 6px;
+  color: #4a4e74;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter";
+  height: 45px;
+  justify-content: center;
+  position: absolute;
+  top: 25%;
+  width: 25%;
+  z-index: 10;
+}

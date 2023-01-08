@@ -3,16 +3,32 @@ import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
 
 import Die from "./components/Die";
+import Scoreboard from "./components/Scoreboard";
+
+/*
+-- Extra Credit:
+1. [x] Create a 'rollCount' piece of state that tracks how many rolls it takes to win the game.
+    [x] Create 'Scoreboard' component to display the rollCount when the game is over.
+
+2. Create a 'highScores' array to track user's best game while playing.
+    # Create a highScores piece of state.
+    # Set it in localStorage
+*/
 
 function App() {
   const [dice, setDice] = useState(allNewDice());
+  const [highScores, setHighScores] = useState([]);
+  const [rollCount, setRollCount] = useState(0);
   const [tenzies, setTenzies] = useState(false);
 
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
     const allSameValue = dice.every((die) => die.value === dice[0].value);
+    console.log(rollCount);
     if (allHeld && allSameValue) {
       setTenzies(true);
+      console.log("You win!");
+      console.log(rollCount);
     }
   }, [dice]);
 
@@ -40,8 +56,10 @@ function App() {
           return die.isHeld ? die : genNewDie();
         })
       );
+      setRollCount((oldRollCount) => oldRollCount + 1);
     } else {
       setTenzies(false);
+      setRollCount(0);
       setDice(() => allNewDice());
     }
   }
@@ -68,6 +86,7 @@ function App() {
     <div className="App">
       <main>
         {tenzies && <Confetti />}
+        {tenzies && <Scoreboard rollCount={rollCount} />}
         <h1 className="title">Tenzies!!</h1>
         <p className="instructions">
           Roll until all dice are the same. Click each die to freeze it at its
