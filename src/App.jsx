@@ -5,19 +5,12 @@ import Confetti from "react-confetti";
 import Die from "./components/Die";
 import Scoreboard from "./components/Scoreboard";
 
-/*
--- Extra Credit:
-1. [x] Create a 'rollCount' piece of state that tracks how many rolls it takes to win the game.
-    [x] Create 'Scoreboard' component to display the rollCount when the game is over.
-
-2. Create a 'highScores' array to track user's best game while playing.
-    # Create a highScores piece of state.
-    # Set it in localStorage
-*/
-
 function App() {
+  const storedScoreboard = localStorage.getItem("scoreboard");
+  const parsedScoreboard = JSON.parse(storedScoreboard);
+
   const [dice, setDice] = useState(allNewDice());
-  const [highScores, setHighScores] = useState([]);
+  const [scoreboard, setScoreboard] = useState(parsedScoreboard || []);
   const [rollCount, setRollCount] = useState(0);
   const [tenzies, setTenzies] = useState(false);
 
@@ -26,11 +19,14 @@ function App() {
     const allSameValue = dice.every((die) => die.value === dice[0].value);
     console.log(rollCount);
     if (allHeld && allSameValue) {
+      setScoreboard((prevScoreboard) => [...prevScoreboard, rollCount]);
       setTenzies(true);
-      console.log("You win!");
-      console.log(rollCount);
     }
   }, [dice]);
+
+  useEffect(() => {
+    localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+  }, [scoreboard]);
 
   function genNewDie() {
     return {
@@ -86,7 +82,9 @@ function App() {
     <div className="App">
       <main>
         {tenzies && <Confetti />}
-        {tenzies && <Scoreboard rollCount={rollCount} />}
+        {tenzies && (
+          <Scoreboard rollCount={rollCount} scoreboard={scoreboard} />
+        )}
         <h1 className="title">Tenzies!!</h1>
         <p className="instructions">
           Roll until all dice are the same. Click each die to freeze it at its
